@@ -6,14 +6,15 @@
 package myarraylist;
 
 /**
- *
- * @author 汪无证
+ * Arraylist
+ * @author Nichole(Jiayue) Yang
  */
 public class MyArrayList<E> extends MyAbstractList<E> {
 
     public static final int INITIAL_CAPACITY = 16;
     private E[] data = (E[]) new Object[INITIAL_CAPACITY];
 
+    //default constructor
     public MyArrayList() {
     }
 
@@ -33,6 +34,7 @@ public class MyArrayList<E> extends MyAbstractList<E> {
         size++;
     }
 
+// enlarge arraylist capacity to ensure arraylist can store enough data
     private void ensureCapacity() {
         if (size >= data.length) {
             E[] newData = (E[]) (new Object[size * 2 - 1]);
@@ -40,7 +42,6 @@ public class MyArrayList<E> extends MyAbstractList<E> {
             data = newData;
         }
     }
-    // add a new element at the end of this list
 
     public void clear() {
         data = (E[]) new Object[INITIAL_CAPACITY];
@@ -63,6 +64,7 @@ public class MyArrayList<E> extends MyAbstractList<E> {
         return data[index];
     }
 
+    // check index is within the scope
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("index " + index + " out of bounds");
@@ -93,10 +95,19 @@ public class MyArrayList<E> extends MyAbstractList<E> {
     public E remove(int index) {
         checkIndex(index);
         E e = data[index];
+        // Shift data to the left 
+        for (int j = index; j < size - 1; j++) {
+            data[j] = data[j + 1];
+        }
+        // This element is now null
+        data[size - 1] = null;
+        // Decrement size 
+        size--;
         return e;
-    } // Shift data to the left92 for (int j = index; j < size - 1; j++)93        data[j] = data[j + 1];9495      data[size - 1] = null; // This element is now null9697 // Decrement size98      size--; 
-    //  replace the element at the specified position in this list with specified element and return the old element
+    }
 
+
+    // replace the element at the specified position in this list with specified element and return the old element
     public E set(int index, E e) {
         checkIndex(index);
         E old = data[index];
@@ -113,8 +124,8 @@ public class MyArrayList<E> extends MyAbstractList<E> {
     }
 
     private class ArrayListIterator implements java.util.Iterator<E> {
-
-        private int current = 0; // Current index 
+        // Current index 
+        private int current = 0; 
 
         @Override
         public boolean hasNext() {
@@ -131,10 +142,4 @@ public class MyArrayList<E> extends MyAbstractList<E> {
             MyArrayList.this.remove(current);
         }
     }
-
-    /**
-     * @param args the command line arguments
-     */
-  
-
 }

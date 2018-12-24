@@ -7,7 +7,7 @@ package myarraylist;
 
 /**
  *
- * @author 汪无证
+ * @author Nichole(Jiayue) Yang
  */
 public class MyLinkedList<E> extends MyAbstractList<E> {
 
@@ -52,10 +52,13 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
      * Add an element to the beginning of the list
      */
     public void addFirst(E e) {
+        //create a node
         Node<E> newNode = new Node<>(e);
         newNode.next = head;
         head = newNode;
+        // increase the size
         size++;
+        // the new node is the only node in the list
         if (tail == null) {
             tail = head;
         }
@@ -67,9 +70,11 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
     public void addLast(E e) {
 
         Node<E> newNode = new Node<>(e);
+        // if new node is the only node in the list
         if (tail == null) {
             head = tail = newNode;
         } else {
+            // link the newnode with last node
             tail.next = newNode;
             tail = tail.next;
         }
@@ -88,6 +93,7 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
             addLast(e);
         } else {
             Node<E> current = head;
+            // locate the current node
             for (int i = 1; i < index; i++) {
                 current = current.next;
             }
@@ -127,6 +133,7 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
             return tmp.element;
         } else {
             Node<E> current = head;
+            //locate the node before last node
             for (int i = 1; i < size - 2; i++) {
                 current = current.next;
             }
@@ -204,7 +211,6 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
             if (e.equals(tmp)) {
                 return true;
             }
-
         }
         return false;
     }
@@ -220,41 +226,47 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
             tmp = tmp.next;
         }
         return tmp.element;
-
     }
 
     @Override
     /**
-     * Return the index of the head matching element 105 * in this list. Return
-     * -1 if no match.
+     * Return the index of the head matching element  in this list. 
+     * Return -1 if no match.
      */
     public int indexOf(E e) {
         Node<E> newNode = new Node<>(e);
         Node<E> tmp = head;
         for (int i = 1; i < size; i++) {
             tmp = tmp.next;
-            if (e.equals(tmp)) {
+            if (e==(tmp.element)) {
                 return i;
             }
-
         }
-
-        return 0;
+        return -1;
     }
 
     /**
-     * Return the index of the last matching element 112 * in this list. Return
-     * -1 if no match.
+     * Return the index of the last matching element in this list. 
+     * Return -1 if no match.
      */
     @Override
     public int lastIndexOf(E e) {
-        System.out.println("Implementation left as an exercise");
-        return 0;
+        int index1=-1;
+      
+        Node<E> tmp = head;
+        for (int i = 1; i < size; i++) {
+            tmp = tmp.next;
+            if (e==(tmp.element)) {
+                index1=i;
+            }
+        }
+        return index1;
+       
     }
 
     @Override
     /**
-     * Replace the element at the specified position 119 * in this list with the
+     * Replace the element at the specified position  in this list with the
      * specified element.
      */
     public E set(int index, E e) {
@@ -296,12 +308,18 @@ public class MyLinkedList<E> extends MyAbstractList<E> {
             return e;
         }
 
-        @Override
-        public void remove() {
+   //     @Override
+  //      public void remove() {
 
-        }
+    //    }
     }
 
+    /* 
+    This class is only used in LinkedList, so it is private. 
+    This class does not need to access any 
+    instance members of LinkedList, so it is defined static. 
+    */
+    
     private static class Node<E> {
 
         E element;

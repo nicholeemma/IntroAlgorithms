@@ -6,13 +6,13 @@
 package myarraylist;
 
 /**
- *
- * @author 汪无证
+ * For testing arraylist creation and linkedlist creation
+ * @author Nichole(Jiayue) Yang
  */
 public class TestLists {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+       
         MyList<String> list = new MyArrayList<String>();
         // Add elements to the list
         list.add("America"); // Add it to the list     
@@ -39,9 +39,14 @@ public class TestLists {
 
         MyLinkedList<String> linkedlist = new MyLinkedList<>();
         linkedlist.add("american");
+        linkedlist.add("american");
+        linkedlist.add("american");
         System.out.println("1" + linkedlist);
-        linkedlist.add(0, "canada");
+        linkedlist.removeFirst();
+         System.out.println("1.1" + linkedlist);
+        linkedlist.add(1, "canada");
         System.out.println("2" + linkedlist);
+        System.out.println(linkedlist.lastIndexOf("american"));
         linkedlist.add("russia");
         System.out.println("3" + linkedlist);
         linkedlist.addFirst("france");
@@ -58,6 +63,7 @@ public class TestLists {
         for (String s : linkedlist) {
             System.out.print(s.toUpperCase() + " ");
         }
+        for(int i=1;i<2;i++)System.out.println("a");
 
     }
 

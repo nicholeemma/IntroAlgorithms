@@ -7,7 +7,7 @@ package myarraylist;
 
 /**
  *
- * @author 汪无证
+ * @author Nichole(Jiayue) Yang
  */
 public abstract class MyAbstractList<E> implements MyList<E> {
 
@@ -15,10 +15,11 @@ public abstract class MyAbstractList<E> implements MyList<E> {
     protected int size = 0;
 
     // create default list ??
+    
     protected MyAbstractList() {
     }
 
-    //
+    
     protected MyAbstractList(E[] objects) {
         for (int i = 0; i < objects.length; i++) {
             add(objects[i]);

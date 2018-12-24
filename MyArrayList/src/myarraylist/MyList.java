@@ -13,7 +13,7 @@ package myarraylist;
  * The abstract class provides a skeletal implementation of the interface, 
  * which minimizes the effort required to implement the interface. 
  *
- * @author 汪无证
+ * @author Nichole(Jiayue) Yang
  */
 public interface MyList<E> extends java.lang.Iterable<E> {
     // add a new element at the end of this list
