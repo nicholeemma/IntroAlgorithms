@@ -7,6 +7,7 @@ package myarraylist;
 
 /**
  * Arraylist
+ *
  * @author Nichole(Jiayue) Yang
  */
 public class MyArrayList<E> extends MyAbstractList<E> {
@@ -106,7 +107,6 @@ public class MyArrayList<E> extends MyAbstractList<E> {
         return e;
     }
 
-
     // replace the element at the specified position in this list with specified element and return the old element
     public E set(int index, E e) {
         checkIndex(index);
@@ -116,16 +116,34 @@ public class MyArrayList<E> extends MyAbstractList<E> {
     }
 
     @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            result.append(data[i]);
+            if (i < size - 1) {
+                result.append(", ");
+            }
+        }
+        return result.toString() + "]";
+    }
+
+    @Override
     /**
-     * Override iterator() defined in Iterable
+     * Override iterator() defined in Iterable The iterator() method defined in
+     * the java.lang.Iterable interface is implemented to return an instance on
+     * java.util.Iterator The ArrayListIterator class implements Iterator with
+     * concrete methods for hasNext, next, and remove It uses current to denote
+     * the current position of the element being traversed
      */
     public java.util.Iterator<E> iterator() {
         return new ArrayListIterator();
     }
 
     private class ArrayListIterator implements java.util.Iterator<E> {
+
         // Current index 
-        private int current = 0; 
+
+        private int current = 0;
 
         @Override
         public boolean hasNext() {
