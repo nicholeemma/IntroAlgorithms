@@ -8,19 +8,32 @@ package binarysearch;
 /**
  *
  * @author 汪无证
+ * @param <E>
  */
 public abstract class AbstractTree<E extends Comparable<E>> implements Tree<E> {
 
-    
+    /**
+     *
+     */
     public void inorder() {
     }
 
+    /**
+     *
+     */
     public void postorder() {
     }
 
+    /**
+     *
+     */
     public void preorder() {
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isEmpty() {
         return getSize() == 0;
     }

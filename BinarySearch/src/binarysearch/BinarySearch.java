@@ -45,24 +45,25 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         } else {
             TreeNode<E> parent = null;
             TreeNode<E> current = root;
-            while (current != null) 
+            while (current != null) {
                 if (e.compareTo(current.element) < 0) {
                     parent = current;
                     current = current.left;
                 } else if (e.compareTo(current.element) > 0) {
                     parent = current;
                     current = current.right;
-                } else{ return false;}
-                
-                if (e.compareTo(parent.element) < 0) 
-                    parent.left = createNewNode(e);
-                else 
-                    parent.right = createNewNode(e);
-        }
-                
+                } else {
+                    return false;
+                }
+            }
 
-            
-        
+            if (e.compareTo(parent.element) < 0) {
+                parent.left = createNewNode(e);
+            } else {
+                parent.right = createNewNode(e);
+            }
+        }
+
         size++;
         return true;
     }
@@ -148,85 +149,119 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         }
         return list;
     }
-    
-     public boolean delete(E e) {
-     
-            TreeNode<E> parent = null;
-            TreeNode<E> current = root;
-            while (current != null) {
+
+    public boolean delete(E e) {
+
+        TreeNode<E> parent = null;
+        TreeNode<E> current = root;
+        while (current != null) {
+            if (e.compareTo(current.element) < 0) {
+                parent = current;
+                current = current.left;
+            } else if (e.compareTo(current.element) > 0) {
+                parent = current;
+                current = current.right;
+            } else {
+                break;
+            }
+
+        }
+        if (current == null) {
+            return false;
+        }
+        if (current.left == null) {
+            if (parent == null) {
+                root = current.right;
+            } else {
+
                 if (e.compareTo(current.element) < 0) {
-                    parent = current;
-                    current = current.left;
-                } else if (e.compareTo(current.element) > 0) {
-                    parent = current;
-                    current = current.right;
-                } else  break;
-              
+                    parent.left = current.right;
+                } else {
+                    parent.right = current.right;
                 }
-            if (current==null) return false;
-            if(current.left==null){
-            if(parent==null) root=current.right;
-            else{
-            
-                if (e.compareTo(current.element) < 0) parent.left=current.right;
-                else parent.right=current.right;}}
-            else{
-             TreeNode<E> parentOfRightMost = current; 
-             TreeNode<E> rightMost = current.left; 
-             while (rightMost.right != null) { 
-                 parentOfRightMost = rightMost; 
-                 rightMost = rightMost.right; // Keep going to the right 
-             }  // Replace the element in current by the element in rightMost
-             current.element = rightMost.element;// Eliminate rightmost node 
-            if (parentOfRightMost.right == rightMost) 
-                parentOfRightMost.right = rightMost.left;  else if
-// Special case: 
-                (parentOfRightMost == current)
-                        parentOfRightMost.left = rightMost.left; 
-            }      size--; return true; // Element deleted successfully 
-     }    @Override /** Obtain an iterator. Use inorder. */ 
-     public java.util.Iterator<E> iterator() {  return new InorderIterator();   } 
-     // Inner class InorderIterator
-     private class InorderIterator implements java.util.Iterator<E> {
-         // Store the elements in a list 
-         private java.util.ArrayList<E> list = 
-                 new java.util.ArrayList<>(); 
-         private int current = 0; // Point to the current element in list 
-         public InorderIterator() {     inorder(); // Traverse binary tree and store elements in list
-         }  /** Inorder traversal from the root*/ 
-         private void inorder() {        inorder(root); }
-      private void inorder(TreeNode<E> root){
-      if(root==null)return;
-      inorder(root.left);
-      list.add(root.element);
-      inorder(root.right);}
-      @Override
-      public boolean hasNext(){
-      if(current<list.size()) return true;
-      else return false;}
-      @Override
-      public E next(){
-      return list.get(current++);}
-      @Override
-      public void remove(){
-      delete(list.get(current));
-      list.clear();
-      inorder();}
-     }
-     public void clear(){
-     root=null;
-     size=0;}}
-            
-            
-               
+            }
+        } else {
+            TreeNode<E> parentOfRightMost = current;
+            TreeNode<E> rightMost = current.left;
+            while (rightMost.right != null) {
+                parentOfRightMost = rightMost;
+                rightMost = rightMost.right; // Keep going to the right 
+            }  // Replace the element in current by the element in rightMost
+            current.element = rightMost.element;// Eliminate rightmost node 
+            if (parentOfRightMost.right == rightMost) {
+                parentOfRightMost.right = rightMost.left;
+            } else if // Special case: 
+                    (parentOfRightMost == current) {
+                parentOfRightMost.left = rightMost.left;
+            }
+        }
+        size--;
+        return true; // Element deleted successfully 
+    }
 
-         
-       
-    
-
+    @Override
     /**
-     * @param args the command line arguments
+     * Obtain an iterator. Use inorder.
      */
-  
+    public java.util.Iterator<E> iterator() {
+        return new InorderIterator();
+    }
 
+    // Inner class InorderIterator
+
+    private class InorderIterator implements java.util.Iterator<E> {
+
+        // Store the elements in a list 
+
+        private java.util.ArrayList<E> list
+                = new java.util.ArrayList<>();
+        private int current = 0; // Point to the current element in list 
+
+        public InorderIterator() {
+            inorder(); // Traverse binary tree and store elements in list
+        }
+
+        /**
+         * Inorder traversal from the root
+         */
+        private void inorder() {
+            inorder(root);
+        }
+
+        private void inorder(TreeNode<E> root) {
+            if (root == null) {
+                return;
+            }
+            inorder(root.left);
+            list.add(root.element);
+            inorder(root.right);
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (current < list.size()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public E next() {
+            return list.get(current++);
+        }
+
+        @Override
+        public void remove() {
+            delete(list.get(current));
+            list.clear();
+            inorder();
+        }
+    }
+
+    public void clear() {
+        root = null;
+        size = 0;
+    }
+}
 
