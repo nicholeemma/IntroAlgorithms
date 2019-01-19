@@ -9,6 +9,13 @@ package binarysearch;
  *
  * @author 汪无证
  */
-public class AVLTree {
-    
+public class AVLTree<E extends Comparable<E>> extends BinarySearch<E> {
+    /**create an AVL tree **/
+    public AVLTree(){}
+    /**create an AVL tree from an array of objects**/
+    public AVLTree(E[] objects){
+    super(objects);}
+    @Override
+    protected AVLTreeNode<E> createNewNode(E e){
+    return new AVLTreeNode<E>(e);}
 }

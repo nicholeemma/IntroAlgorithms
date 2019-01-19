@@ -6,7 +6,7 @@
 package binarysearch;
 
 /**
- *
+ * define all common operations for trees 
  * @author 汪无证
  */
 public interface Tree <E extends Comparable<E>> extends Iterable<E>{

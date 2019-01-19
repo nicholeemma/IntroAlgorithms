@@ -40,23 +40,28 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
 
     @Override
     public boolean insert(E e) {
+        // if the tree is empty, create a root node with new element
         if (root == null) {
             root = createNewNode(e);
         } else {
+            //locate the parent node
             TreeNode<E> parent = null;
             TreeNode<E> current = root;
             while (current != null) {
                 if (e.compareTo(current.element) < 0) {
+                    //keep the parent
                     parent = current;
+                    // go left
                     current = current.left;
                 } else if (e.compareTo(current.element) > 0) {
                     parent = current;
                     current = current.right;
                 } else {
+                    // duplicate node not inserted
                     return false;
                 }
             }
-
+            // create a new node for e and attach it to parent
             if (e.compareTo(parent.element) < 0) {
                 parent.left = createNewNode(e);
             } else {
@@ -72,6 +77,9 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         return new TreeNode<>(e);
     }
 
+    // with inorder traversal, the left subtree of the current node is visited first recursively, 
+    // then the current node, and 
+    // the finally right subtree of the current node recursively
     @Override
     public void inorder() {
         inorder(root);
@@ -86,6 +94,9 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         inorder(root.right);
     }
 
+    // the left subtree of the current node is visited recursively first
+    // the recursively the right subtree of the current node
+    // finally the current node itself
     @Override
     public void postorder() {
         postorder(root);
@@ -95,11 +106,15 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         if (root == null) {
             return;
         }
-        System.out.println(root.element + " ");
+
         postorder(root.left);
         postorder(root.right);
+        System.out.println(root.element + " ");
     }
 
+    // the current node is visited first
+    // then recursively the left subtree of the current node 
+    /// finally the right subtree of the current node
     @Override
     public void preorder() {
         preorder(root);
@@ -109,12 +124,15 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         if (root == null) {
             return;
         }
-
+        System.out.println(root.element + " ");
         preorder(root.left);
         preorder(root.right);
-        System.out.println(root.element + " ");
+
     }
 
+    /**
+     * inner class for node *
+     */
     public static class TreeNode<E extends Comparable<E>> {
 
         protected E element;
@@ -150,6 +168,10 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         return list;
     }
 
+    /* delete an element from the binary search tree
+     * return true if the element is deleted successfully
+     * false if the element is not in the tree
+     */
     public boolean delete(E e) {
 
         TreeNode<E> parent = null;
@@ -163,38 +185,57 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
                 current = current.right;
             } else {
                 break;
+                // element is in the tree pointed by current
             }
 
         }
+        //element is not in the tree
         if (current == null) {
             return false;
         }
-        if (current.left == null) {
-            if (parent == null) {
-                root = current.right;
-            } else {
 
-                if (e.compareTo(current.element) < 0) {
+        // left subtree is null
+        if (current.left == null) 
+        {
+            // if e is the root, delete the root
+            if (parent == null) 
+               {
+                root = current.right;
+                } 
+            else 
+            {
+
+                if (e.compareTo(current.element) < 0) 
+                {
                     parent.left = current.right;
-                } else {
+                } 
+                else 
+                {
                     parent.right = current.right;
                 }
             }
-        } else {
+        } 
+        // left subtree is not null
+        // find the largest one in the left subtree, namely the rightest one in the left subtree
+        else 
+        {
             TreeNode<E> parentOfRightMost = current;
             TreeNode<E> rightMost = current.left;
             while (rightMost.right != null) {
                 parentOfRightMost = rightMost;
                 rightMost = rightMost.right; // Keep going to the right 
-            }  // Replace the element in current by the element in rightMost
-            current.element = rightMost.element;// Eliminate rightmost node 
+            }
+            // Replace the element in current by the element in rightMost
+            current.element = rightMost.element;
+            // Eliminate rightmost node 
             if (parentOfRightMost.right == rightMost) {
-                parentOfRightMost.right = rightMost.left;
+                parentOfRightMost.right = null;
             } else if // Special case: 
                     (parentOfRightMost == current) {
                 parentOfRightMost.left = rightMost.left;
             }
         }
+
         size--;
         return true; // Element deleted successfully 
     }
@@ -208,11 +249,9 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     // Inner class InorderIterator
-
     private class InorderIterator implements java.util.Iterator<E> {
 
         // Store the elements in a list 
-
         private java.util.ArrayList<E> list
                 = new java.util.ArrayList<>();
         private int current = 0; // Point to the current element in list 
@@ -264,4 +303,3 @@ public class BinarySearch<E extends Comparable<E>> extends AbstractTree<E> {
         size = 0;
     }
 }
-

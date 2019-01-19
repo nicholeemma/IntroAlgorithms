@@ -13,7 +13,7 @@ package binarysearch;
 public abstract class AbstractTree<E extends Comparable<E>> implements Tree<E> {
 
     /**
-     *
+     * partial implement Tree interface
      */
     public void inorder() {
     }

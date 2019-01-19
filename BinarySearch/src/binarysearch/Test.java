@@ -12,6 +12,7 @@ package binarysearch;
 public class Test {
 
     public static void main(String[] args) {// Create a BST
+        /*
         BinarySearch<String> tree = new BinarySearch<>();
         tree.insert("George");
         tree.insert("Michael");
@@ -20,6 +21,7 @@ public class Test {
         tree.insert("Jones");
         tree.insert("Peter");
         tree.insert("Daniel");
+               
         // Traverse tree      
         System.out.print("Inorder (sorted): ");
         tree.inorder();
@@ -37,10 +39,14 @@ public class Test {
         for (int i = 0; path != null && i < path.size(); i++) {
             System.out.print(path.get(i).element + " ");
         }
-        Integer[] numbers = {2, 4, 3, 1, 8, 5, 6, 7};
+                 */
+        Integer[] numbers = {2, 4, 3, 1, 8, 5, 6,6, 7};
         BinarySearch<Integer> intTree = new BinarySearch<>(numbers);
+       intTree.inorder();
+        intTree.delete(6);
         System.out.print("\nInorder (sorted): ");
         intTree.inorder();
+                
     }
 
 }
